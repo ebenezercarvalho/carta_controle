@@ -137,10 +137,15 @@ Data: _______________________________________
 
     # Criar PDF usando FPDF com suporte a Unicode
     class PDF(FPDF):
-        def header(self):
-            self.set_font('DejaVuSans', 'B', 12)
-            self.cell(0, 10, f'Relatório de Carta Controle - {nome_analise}', 0, 1, 'C')
-            self.ln(10)
+        def __init__(self):
+            super().__init__()
+            # Definir o caminho absoluto para a pasta /fonts
+            font_path = os.path.join(os.path.dirname(__file__), 'fonts')
+            # Adicionar as variantes da fonte DejaVuSans
+            self.add_font('DejaVuSans', '', os.path.join(font_path, 'dvs.ttf'), uni=True)
+            self.add_font('DejaVuSans', 'B', os.path.join(font_path, 'DejaVuSans-Bold.ttf'), uni=True)
+            self.add_font('DejaVuSans', 'I', os.path.join(font_path, 'DejaVuSans-Oblique.ttf'), uni=True)
+            self.set_font('DejaVuSans', '', 11)  # Definir a fonte padrão
 
         def footer(self):
             self.set_y(-15)
@@ -151,11 +156,6 @@ Data: _______________________________________
     font_path = pkg_resources.resource_filename(__name__, 'fonts')
     # Adicionar as variantes da fonte DejaVuSans
     pdf = PDF()
-    pdf.add_font('DejaVuSans', '', os.path.join(font_path, 'dvs.ttf'), uni=True)
-    pdf.add_font('DejaVuSans', 'B', os.path.join(font_path, 'DejaVuSans-Bold.ttf'), uni=True)
-    pdf.add_font('DejaVuSans', 'I', os.path.join(font_path, 'DejaVuSans-Oblique.ttf'), uni=True)
-    pdf.set_font('DejaVuSans', '', 11)  # Definir a fonte padrão
-
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
 
