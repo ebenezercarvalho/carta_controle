@@ -140,7 +140,7 @@ Data: _______________________________________
         def __init__(self):
             super().__init__()
             # Definir o caminho relativo para a pasta /fonts
-            font_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fonts')
+            font_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '/mount/src/carta_controle/fonts')
             logger.info(f"Caminho da fonte: {font_path}")  # Log para depuração
             # Verificar se a pasta e os arquivos de fonte existem
             if not os.path.exists(font_path):
