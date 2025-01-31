@@ -165,30 +165,101 @@ Data: _______________________________________
             self.add_font('DejaVuSans', 'I', font_files['italic'], uni=True)
             self.set_font('DejaVuSans', '', 11)  # Definir a fonte padrão
 
-        def footer(self):
-            self.set_y(-15)
-            self.set_font('DejaVuSans', 'I', 8)
-            self.cell(0, 10, f'Página {self.page_no()}', 0, 0, 'C')
+    def footer(self):
+        self.set_y(-15)
+        self.set_font('DejaVuSans', 'I', 8)
+        self.cell(0, 10, f'Página {self.page_no()}', 0, 0, 'C')
 
-    # Adicionar as variantes da fonte DejaVuSans
+# Classe PDF movida para fora da função create_report
+class PDF(FPDF):
+    def __init__(self):
+        super().__init__()
+        # Definir o caminho relativo para a pasta /fonts
+        font_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fonts')
+        logger.info(f"Caminho da fonte: {font_path}")  # Log para depuração
+
+        # Verificar se a pasta e os arquivos de fonte existem
+        if not os.path.exists(font_path):
+            raise FileNotFoundError(f"Pasta de fontes não encontrada: {font_path}")
+
+        # Verificar cada arquivo de fonte
+        font_files = {
+            'normal': os.path.join(font_path, 'dvs.ttf'),
+            'bold': os.path.join(font_path, 'DejaVuSans-Bold.ttf'),
+            'italic': os.path.join(font_path, 'DejaVuSans-Oblique.ttf')
+        }
+        for name, path in font_files.items():
+            if not os.path.exists(path):
+                logger.error(f"Arquivo de fonte não encontrado: {path}")
+            else:
+                logger.info(f"Arquivo de fonte encontrado: {path}")
+
+        # Adicionar as variantes da fonte DejaVuSans
+        self.add_font('DejaVuSans', '', font_files['normal'], uni=True)
+        self.add_font('DejaVuSans', 'B', font_files['bold'], uni=True)
+        self.add_font('DejaVuSans', 'I', font_files['italic'], uni=True)
+        self.set_font('DejaVuSans', '', 11)  # Definir a fonte padrão
+
+    def footer(self):
+        self.set_y(-15)
+        self.set_font('DejaVuSans', 'I', 8)
+        self.cell(0, 10, f'Página {self.page_no()}', 0, 0, 'C')
+
+# Função para gerar o relatório PDF
+def create_report(nome_analise, data_atual, fig, mean, std, n_samples):
+    markdown_content = f"""# Relatório de Carta Controle - {nome_analise}
+Gerado em {data_atual}
+
+A Carta de Controle é uma ferramenta estatística fundamental para o monitoramento e controle de processos. Ela permite visualizar a variabilidade do processo ao longo do tempo e identificar possíveis anomalias ou tendências que necessitam de atenção.
+## Conceitos Importantes
+### Média
+A média ({mean:.2f}) representa o valor central do processo. É calculada somando-se todos os valores e dividindo pelo número total de observações. A linha central no gráfico representa este valor.
+### Desvios Padrão
+O desvio padrão ({std:.2f}) é uma medida da variabilidade do processo. As linhas no gráfico representam:
+- ±1σ: 68,27% dos dados devem estar nesta faixa
+- ±2σ: 95,45% dos dados devem estar nesta faixa
+- ±3σ: 99,73% dos dados devem estar nesta faixa
+## Análise dos Dados
+- Número de amostras analisadas: {n_samples}
+- Média do processo: {mean:.2f}
+- Desvio padrão: {std:.2f}
+
+## Gráfico de Controle
+
+Este relatório foi gerado automaticamente pelo sistema de Cartas de Controle.
+
+Assinatura: _________________________________
+Data: _______________________________________
+"""
+
+    # Criar arquivo temporário para o gráfico
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as tmp_file:
+        fig.write_image(tmp_file.name)
+        img_path = tmp_file.name
+
+    # Criar PDF
     pdf = PDF()
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
+
+    # Configurar margens
+    pdf.set_left_margin(10)
+    pdf.set_right_margin(10)
 
     # Dividir o markdown em linhas e adicionar ao PDF
     for line in markdown_content.split('\n'):
         if line.startswith('# '):
             pdf.set_font('DejaVuSans', 'B', 16)
             pdf.ln(10)
-            pdf.cell(0, 10, line[2:], 0, 1)
+            pdf.multi_cell(0, 10, line[2:])
             pdf.ln(5)
         elif line.startswith('## '):
             pdf.set_font('DejaVuSans', 'B', 14)
             pdf.ln(5)
-            pdf.cell(0, 10, line[3:], 0, 1)
+            pdf.multi_cell(0, 10, line[3:])
         elif line.startswith('### '):
             pdf.set_font('DejaVuSans', 'B', 12)
-            pdf.cell(0, 10, line[4:], 0, 1)
+            pdf.multi_cell(0, 10, line[4:])
         else:
             pdf.set_font('DejaVuSans', '', 11)
             pdf.multi_cell(0, 10, line)
