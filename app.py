@@ -198,7 +198,7 @@ class PDF(FPDF):
         self.add_font('DejaVuSans', '', font_files['normal'], uni=True)
         self.add_font('DejaVuSans', 'B', font_files['bold'], uni=True)
         self.add_font('DejaVuSans', 'I', font_files['italic'], uni=True)
-        self.set_font('DejaVuSans', '', 10)  # Definir a fonte padrão
+        self.set_font('DejaVuSans', '', 11)  # Definir a fonte padrão
 
     def footer(self):
         self.set_y(-15)
