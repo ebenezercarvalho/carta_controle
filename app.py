@@ -140,8 +140,12 @@ Data: _______________________________________
         def __init__(self):
             super().__init__()
             # Definir o caminho relativo para a pasta /fonts
-            font_path = os.path.join(os.getcwd(), 'fonts')
-           # Adicionar as variantes da fonte DejaVuSans
+            font_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fonts')
+            logger.info(f"Caminho da fonte: {font_path}")  # Log para depuração
+            # Verificar se a pasta e os arquivos de fonte existem
+            if not os.path.exists(font_path):
+                raise FileNotFoundError(f"Pasta de fontes não encontrada: {font_path}")
+            # Adicionar as variantes da fonte DejaVuSans
             self.add_font('DejaVuSans', '', os.path.join(font_path, 'dvs.ttf'), uni=True)
             self.add_font('DejaVuSans', 'B', os.path.join(font_path, 'DejaVuSans-Bold.ttf'), uni=True)
             self.add_font('DejaVuSans', 'I', os.path.join(font_path, 'DejaVuSans-Oblique.ttf'), uni=True)
@@ -152,7 +156,6 @@ Data: _______________________________________
             self.set_font('DejaVuSans', 'I', 8)
             self.cell(0, 10, f'Página {self.page_no()}', 0, 0, 'C')
 
-   
     # Adicionar as variantes da fonte DejaVuSans
     pdf = PDF()
     pdf.add_page()
@@ -187,6 +190,9 @@ Data: _______________________________________
     Path(img_path).unlink()
     
     return pdf_bytes
+
+# Restante do código (não alterado)
+# ...
 
 # Título do aplicativo com estilo
 st.title("Gerador de Carta Controle")
