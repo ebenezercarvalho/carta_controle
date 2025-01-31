@@ -5,3 +5,4 @@ plotly
 fpdf
 kaleido
 setuptools
+fpdf2
