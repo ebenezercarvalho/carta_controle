@@ -138,12 +138,12 @@ Data: _______________________________________
     class PDF(FPDF):
         def __init__(self):
             super().__init__()
-            # Definir o caminho absoluto para a pasta /fonts
-            font_path = os.path.join(os.path.dirname(__file__), 'fonts')
+            # Definir o caminho relativo para a pasta /fonts
+            font_path = Path(__file__).parent / 'fonts'
             # Adicionar as variantes da fonte DejaVuSans
-            self.add_font('DejaVuSans', '', os.path.join(font_path, 'dvs.ttf'), uni=True)
-            self.add_font('DejaVuSans', 'B', os.path.join(font_path, 'DejaVuSans-Bold.ttf'), uni=True)
-            self.add_font('DejaVuSans', 'I', os.path.join(font_path, 'DejaVuSans-Oblique.ttf'), uni=True)
+            self.add_font('DejaVuSans', '', str(font_path / 'dvs.ttf'), uni=True)
+            self.add_font('DejaVuSans', 'B', str(font_path / 'DejaVuSans-Bold.ttf'), uni=True)
+            self.add_font('DejaVuSans', 'I', str(font_path / 'DejaVuSans-Oblique.ttf'), uni=True)
             self.set_font('DejaVuSans', '', 11)  # Definir a fonte padrão
 
         def header(self):
