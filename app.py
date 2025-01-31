@@ -13,6 +13,7 @@ import re
 import gettext
 from pathlib import Path
 import os
+import pkg_resources
 
 # Configuração do logging
 logging.basicConfig(level=logging.INFO)
@@ -146,8 +147,8 @@ Data: _______________________________________
             self.set_font('DejaVuSans', 'I', 8)
             self.cell(0, 10, f'Página {self.page_no()}', 0, 0, 'C')
 
-    # Definir o caminho relativo para a pasta /fonts
-    font_path = os.path.join(os.path.dirname(__file__), 'fonts')
+    # Definir o caminho relativo para a pasta /fonts usando pkg_resources
+    font_path = pkg_resources.resource_filename(__name__, 'fonts')
     # Adicionar as variantes da fonte DejaVuSans
     pdf = PDF()
     pdf.add_font('DejaVuSans', '', os.path.join(font_path, 'dvs.ttf'), uni=True)
