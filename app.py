@@ -152,8 +152,7 @@ Data: _______________________________________
             self.set_font('DejaVuSans', 'I', 8)
             self.cell(0, 10, f'Página {self.page_no()}', 0, 0, 'C')
 
-    # Definir o caminho relativo para a pasta /fonts usando pkg_resources
-    font_path = pkg_resources.resource_filename(__name__, 'fonts')
+   
     # Adicionar as variantes da fonte DejaVuSans
     pdf = PDF()
     pdf.add_page()
