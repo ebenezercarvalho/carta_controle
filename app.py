@@ -25,6 +25,9 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+# Inserir logo
+st.image('/workspaces/carta_controle/img/logo.png', width=200)
+
 # Estilo CSS personalizado
 st.markdown("""
 <style>
@@ -147,7 +150,7 @@ def create_report(nome_analise, data_atual, fig, mean, std, n_samples):
     return pdf_bytes
 
 # Interface principal
-st.title("Gerador de Carta Controle")
+st.title("SigmaTrack - Carta Controle")
 
 # Informações do relatório
 with st.container():
