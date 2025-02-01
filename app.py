@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 # Configuração da página
 st.set_page_config(
-    page_title="Carta de Controle",
+    page_title="SigmaTrack - Gerador de Carta de Controle",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
