@@ -1,12 +1,18 @@
-# Gerador de Carta de Controle
+# SigmaTrack - Gerador de Carta de Controle
 
-Este projeto é um aplicativo web desenvolvido em Python utilizando a biblioteca **Streamlit**. O aplicativo permite que o usuário insira dados (por meio de colagem direta ou upload de arquivo CSV) para gerar uma carta de controle, um tipo de gráfico utilizado para monitoramento de processos. Além disso, o aplicativo gera um relatório em PDF contendo o gráfico e informações estatísticas do conjunto de dados.
+Este projeto é um aplicativo web desenvolvido em Python utilizando principalmente as bibliotecas **Streamlit** e **Plotly**. O aplicativo permite que o usuário insira dados (por meio de colagem direta ou upload de arquivo CSV) para gerar uma carta de controle, um tipo de gráfico utilizado para monitoramento de processos. Além disso, o aplicativo gera um relatório em PDF contendo o gráfico e informações estatísticas do conjunto de dados.
+
+![image](https://github.com/user-attachments/assets/c94aa799-4540-483e-ba16-af84c461a46f)
+
 
 ## Funcionalidades
 
 - **Entrada de Dados**: 
   - O usuário pode colar os dados diretamente em um campo de texto ou fazer upload de um arquivo CSV.
   - Os dados devem conter duas colunas: `Data` (no formato `aaaa-mm-dd`) e `Valor` (numérico).
+
+![image](https://github.com/user-attachments/assets/75d186c6-c32e-4d1e-919c-50243a1095fb)
+
 
 - **Validação e Processamento de Dados**:
   - O aplicativo valida se as colunas necessárias estão presentes e se os dados estão no formato correto.
@@ -15,6 +21,9 @@ Este projeto é um aplicativo web desenvolvido em Python utilizando a biblioteca
 - **Geração de Gráfico**:
   - Utiliza a biblioteca **Plotly** para criar um gráfico interativo que exibe a evolução dos valores ao longo do tempo.
   - Adiciona linhas de controle, incluindo a média e os limites de controle baseados em desvios padrão (+/-1σ, +/-2σ, +/-3σ).
+ 
+    ![image](https://github.com/user-attachments/assets/7277d50a-5f99-4b56-a7d0-3b63e4497b6e)
+
 
 - **Relatório em PDF**:
   - Gera um relatório em PDF utilizando a biblioteca **fpdf**.
