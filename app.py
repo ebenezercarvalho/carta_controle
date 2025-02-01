@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 # Configuração da página
 st.set_page_config(
     page_title="Carta de Controle",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="collapsed"
 )
 
