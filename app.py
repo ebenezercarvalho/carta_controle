@@ -26,7 +26,7 @@ st.set_page_config(
 )
 
 # Inserir logo
-st.image('/workspaces/carta_controle/img/logo.png', width=200)
+st.image('img/logo.png', width=200)
 
 # Estilo CSS personalizado
 st.markdown("""
