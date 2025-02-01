@@ -2,3 +2,9 @@ v1.txt
 v2.txt
 teste.csv
 .venv/
+*.pyc
+__pycache__/
+*.pkl
+fonts/
+feedbacks.txt
+MANIFEST.in
