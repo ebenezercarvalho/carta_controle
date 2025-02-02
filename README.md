@@ -95,9 +95,9 @@ Acesse o aplicativo no navegador em: http://localhost:8501
 └── ...                  # Outros arquivos e pastas do projeto
 ```
 
-**Contribuição**
+
 
 Contribuições são bem-vindas! Se você deseja melhorar o projeto, por favor, abra uma issue ou envie um pull request.
 
-**Desenvolvido por Ebenézer Carvalho**
+**Ebenézer Carvalho**
 
